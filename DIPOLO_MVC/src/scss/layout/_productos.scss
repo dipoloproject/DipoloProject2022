@@ -1,0 +1,50 @@
+@include pantallaTablet {
+    .productos-contenido {
+       @include grid(3, 2rem);
+    }
+}
+
+picture img {
+    width: 42rem;
+}
+
+.card {
+    background-color: rgb(179, 177, 177);
+    border: 2px solid $negro;
+
+    .card-contenido {
+        padding: 2rem;
+    }
+
+    h3, p {
+        margin: 0;
+        font-size: 3rem;
+    }
+
+    .precio {
+        color: $azul;
+        font-size: 5rem;
+        font-weight: 600;
+    }
+}
+
+.iconos-caracteristicas {
+    display: flex;
+    list-style: none;//quitar puntitos de elementos li
+
+    li {
+        flex: 1;//para qeu cada li tome la misma proporcion de la que hay disponible
+        display: flex;
+        height: 5rem;
+        margin: 0 0rem;
+
+        img {
+            flex: 0 0 1rem;
+            
+        }
+    }
+}
+
+.ver-todos {
+    margin: 3rem 1rem;
+}

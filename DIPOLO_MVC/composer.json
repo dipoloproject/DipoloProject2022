@@ -1,0 +1,21 @@
+{
+    "name": "gonzaloadrianpastrana/dipolo-laragon",
+    "description": "A\u0000adiendo POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Gonzalo A. Pastrana",
+            "email": "gonza_it@hotmail.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Model\\" : "./models",
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers"
+        }
+    }
+}

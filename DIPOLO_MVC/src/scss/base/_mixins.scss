@@ -1,0 +1,43 @@
+//se los utiliza colocando en el archivo .scss: @include nombreMixin {prop1; prop2;...}
+//se los utiliza dentro de la clase
+
+@mixin pantallaCelular { 
+    @media (min-width: 480px) {
+        @content;//directiva para que tome lo que se le defina en los archivos .scss
+    }
+}
+
+@mixin pantallaTablet { 
+    @media (min-width: 768px) {
+        @content;//directiva para que tome lo que se le defina en los archivos .scss
+    }
+}
+
+@mixin pantallaPc { 
+    @media (min-width: 1200px) {
+        @content;//directiva para que tome lo que se le defina en los archivos .scss
+    }
+}
+
+@mixin grid($columnas, $espaciado) {
+     display: grid;
+     grid-template-columns: repeat($columnas, 1fr);
+     gap: $espaciado;
+}
+//para hacer que el elemento padre este dividido en $columnas columnas separadas por
+//la distancia de $espaciado
+
+@mixin boton($display) {
+    background-color: rgb(240, 161, 15);
+    color: $blanco;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 1rem 3rem;
+    text-align: center;
+    display: $display;
+
+    &:hover {
+        background-color: $negro;
+    }
+}
+

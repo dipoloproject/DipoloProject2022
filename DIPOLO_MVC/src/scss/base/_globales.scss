@@ -1,0 +1,59 @@
+//Configuración para que 1rem = 10px. De esta manera, el sitio se adapta más
+//a una gran cantidad de navegadores
+html {
+    font-size: 62.5%; //se reinicia el tamaño del documento al 62.5%. Configuración 50/100
+    box-sizing: border-box;//resuelve el que el padding no interfiera en las medidas reales 1/2
+
+    //line-height: 1rem;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}//resuelve el que el padding no interfiere en las medidas reales 2/2
+//se hace esto en todos los elementos y a los pseudoelementos (no existen en html pero si en CSS)
+//--------------------------------------------------------------------*
+
+body {
+    font-family: $fuentePrincipal;
+    font-size: 1.6rem;//Configuración 100/100
+}
+
+p {
+    font-size: 2rem;
+    color: $negro;
+}
+
+a {
+    font-family: $fuentePrincipal;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+
+h1 {
+    font-size: 3.6rem;
+}
+
+
+.contenedor-centrado {
+    max-width: 130rem;  //ancho
+    //height: 10rem;
+    margin: 0 auto; //posicion respecto a la pantalla con ancho especificado
+                    //arriba y abajo = 0
+                    //izquierda y derecha = automatico
+}
+
+.w-100 {
+    width: 100%;
+}
+
+form input.boton-rojo {
+    border-style: none;
+}

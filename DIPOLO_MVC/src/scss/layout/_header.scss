@@ -1,0 +1,208 @@
+.header {
+    padding-top: 1rem;  //espacio superior desde el logo DP hasta el borde de la pantalla
+                        //NO se pudo hacer con margin
+    display: block;
+
+    .background-header-contenido-superior {
+        background-color: $blanco;//el fondo del header superior es blanco
+    }//fondo del header superior
+
+    .header-contenido-superior {
+        display: flex;//[logo y nombre] y [datos de contacto] se colocan al lado
+        justify-content: space-between;//[logo y nombre] y [datos de contacto] en los extremos
+    }
+    
+    .empresa-logo-nombre {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img.logo {
+            height: 6.5rem;//max-height: 7rem; //tamaño del logo DP
+        }//logo DP
+        
+        a {
+            color: $negro;
+            font-size: 3.6rem;//tamaño
+            font-weight: 600;//ancho
+            text-transform: uppercase;//MAYUSCULAS
+
+            // &:hover {
+            //     background-color: red;
+            //     color: $blanco;
+            // }
+        }//nombre de la empresa
+
+    }//empresa-logo-nombre
+
+    p {
+        font-weight: 600;
+        font-size: 1.7rem;
+        color: $negro;
+    }
+
+    .datos-contacto {
+        display: flex;
+        justify-content: flex-end;//[icono y valor] agrupados a la derecha
+        gap: 2rem;//separación entre cada bloque [icono y valor]
+        //align-items: center;
+    }
+    
+    .dato_icono-valor {
+        display: flex;
+        align-items: center;//los alinea verticalmente de forma central
+        gap: 0.5rem;//separacion entre icono y valor
+    }
+    
+
+ //VAN MAS SELECTORES Y PROPIEDADES!!
+
+}// header
+
+.background-navegacion-principal {
+    background-color: $negro;
+}//color de fondo de la navegacion, ocupa todo el ancho
+
+.navegacion-principal-contenedor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navegacion-principal-enlaces {
+    display: flex;
+    justify-content: space-between;//ubica el 1er y ultimo enlace en los extremos
+    // @include pantallaPc {
+    //     display: flex;
+    // }
+
+    a img {
+        height: 3rem;
+    }//enlace Home
+
+    a {
+        display: flex;          //
+        flex-direction: column; //
+        justify-content: center;//para poder centrar verticalmente los enlaces en la barra de navegación
+        
+        padding: 1rem 3rem 1rem 3rem;
+        
+        &:hover {//efecto al apuntar al enlace
+            background-color: $azul;
+            color: $blanco;
+        }
+    }
+
+    a.enlaces-nologo {
+        font-family: $fuentePrincipal;
+        font-size: 2rem;
+        font-weight: 600;
+        color: $blanco;
+    }
+
+}
+//==========================================================================
+
+
+//EFECTO SLIDER DE BANNER 1/2
+.contenedor-slider {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+#slider {
+    width: 2000px;
+    height: 90px;
+    background-image: url(banner-carrusel.png);//la imagen png está en la carpeta build/css
+    background-size: 100% 100%;
+
+    animation: slider 25s infinite linear;
+    background-repeat: repeat;//propiedad por defecto
+    animation-direction: reverse;//hacia la izquierda 
+}
+
+@keyframes slider {
+    to {
+        background-position: 2001px;
+    }
+}
+//EFECTO SLIDER DE BANNER 1/2
+
+
+.menu-hamburguesa {
+    width: 60px;
+    display: block;
+    float: right;
+    text-align: right;
+    margin-top: 12px;
+
+    cursor: pointer;//para que se vea una manito apuentando cuando el cursor esta arriba
+}
+.menu-hamburguesa span {
+    height: 8px;
+    margin-bottom: 6px;
+    background-color: $negro;
+    display: block;
+
+    @include pantallaPc {
+        display: none;
+    }
+
+}
+
+.muestra-menu-slide {
+    .enlaces-navegacion-principal{
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(9, 115, 119);
+        //box-shadow: 2px 0px 5px 2px rgb(72, 223, 12);
+        width: 35rem;
+        height: 100vh;
+        position: absolute;
+        top: 10rem;
+        right: 0;
+        transition: all .5s ease;
+        transform: translate(-10px);
+        position: fixed;
+
+    }
+    
+}
+
+// .enlaces-menu-slide {
+//     //padding: 100px 0px 20px 0px;
+//     //display: block;
+//     //list-style: none;   
+// }
+
+.buscar-contenido {
+    display: flex;          //
+    flex-direction: column; //
+    justify-content: center;//para que el campo Buscar este centrado verticalmente
+
+    form {
+        input.buscar{
+            border-radius: 5rem;//redondeado del cuadro de texto
+            height: 3.25rem;//altura del cuadro de texto
+            width: 20rem;//ancho del cuadro de texto
+            font-size: 20px;//tamaño de las letras que se ingresen en el cuadro de texto
+            padding: 1.5rem;//cuando se escriba, las letras NO esten tan cerca del borde del cuadro de texto
+            border: none;
+    
+            &::placeholder {
+                font-weight: 500;//acnho de la letra
+                background-image: url(search-icon.png);//imagen de LUPA en el campo Buscar
+                background-size: 25px 25px; //tamaño de la imagen de LUPA
+                background-position: right center;//posiciona la imagen de LUPA en el campo Buscar
+                background-repeat: no-repeat;//la imagen de LUPA NO se repite
+            }
+            &:focus {
+                outline: none;
+            }
+        }//input.buscar
+    }//form
+}//contenedor del Buscador
+
+
+
+
