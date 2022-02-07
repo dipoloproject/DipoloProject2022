@@ -58,9 +58,9 @@ class Rubro extends ActiveRecord {
         if( $this->idRubroPadre==NULL ) {   //Se crea un rubro que NO tiene padre
                                             //o sea, que es Rubro de 1er orden
 
-             echo "Se creara rubro NO hijo<br>";
-             var_dump($this->idRubroPadre);
-             exit;
+            //echo "Se creara rubro NO hijo<br>";
+            //var_dump($this->idRubroPadre);
+            //exit;
 
             $stmt = self::$db->prepare( "INSERT INTO    `Rubros` (  nombreRubro, descripcionRubro,
                                                                     ordenRubro, destacadoRubro,
@@ -125,6 +125,93 @@ class Rubro extends ActiveRecord {
     }// FIN guardar()
 
 
+    public function actualizar() {
+        // echo "<pre>";
+        // var_dump($this->nombreRubro);
+        // var_dump($this->descripcionRubro);
+        // var_dump($this->ordenRubro);
+        // var_dump($this->destacadoRubro);
+        // var_dump($this->menuRubro);
+        // var_dump($this->estadoRubro);
+        // var_dump($this->idRubro);
+        // echo "</pre>";
+
+        $stmt = self::$db->prepare( "UPDATE `Rubros` SET    nombreRubro= ?, descripcionRubro= ?,
+                                                            ordenRubro= ?, destacadoRubro= ?,
+                                                            menuRubro= ?, estadoRubro= ?
+                                        WHERE   idRubro= ? ;" );
+
+        $stmt->bind_param("ssisssi",    $this->nombreRubro, $this->descripcionRubro,
+                                        $this->ordenRubro, $this->destacadoRubro, 
+                                        $this->menuRubro, $this->estadoRubro, 
+                                        $this->idRubro );
+
+        /*$stmt = self::$db->prepare( "INSERT INTO    `Rubros` (  idRubroPadre, 
+                                                                nombreRubro, descripcionRubro,
+                                                                ordenRubro, destacadoRubro,
+                                                                menuRubro, estadoRubro) 
+                        VALUES ( ?, ?, ?, ?, ?, ?, ?) ;" );
+
+        $stmt->bind_param("ississs",    $this->idRubroPadre, 
+                                        $this->nombreRubro, $this->descripcionRubro,
+                                        $this->ordenRubro, $this->destacadoRubro, 
+                                        $this->menuRubro, $this->estadoRubro);*/
+
+
+        /*$stmt = self::$db->prepare( "UPDATE Rubros SET nombreRubro= ? WHERE idRubro= ?;" );
+
+        $stmt->bind_param("si", $this->nombreRubro, $this->idRubro );*/
+
+
+
+
+
+        //debuguear($stmt);
+        $stmt->execute();
+
+        return true;
+        // debuguear($stmt);
+
+        //$stmt->affected_rows siempre devolvera 0, ESTO OCURRE CON UPDATE y supuestamente con DELETE
+        if($stmt->affected_rows>0) {
+            //echo "La actualizacion fue exitosa";
+            return true;
+        } else {
+            //echo "NO se pudo actualizar";
+            //return false;
+            return true;
+        }
+
+        $stmt->close();
+        self::$db->close(); 
+
+        //echo "LUEGO DEL EXECUTE DE ACTUALIZAR";
+        //echo $query;
+        //debuguear($resultado);
+    }//FIN actualizar()
+
+    public function eliminar() {
+        
+        $stmt = self::$db->prepare( "DELETE FROM `Rubros` WHERE idRubro= ? LIMIT 1 ;" );
+        $stmt->bind_param("i",    $this->idRubro );
+        $stmt->execute();
+
+        if($stmt->affected_rows>0) {
+            //echo "La eliminacion fue exitosa";
+            return true;
+        } else {
+            //echo "NO se pudo eliminar";
+            return false;
+        }
+
+        $stmt->close();
+        self::$db->close(); 
+    }//FIN eliminar()
+
+
+
+
+
 
     //Listar todos los productos
     public static function all() {
@@ -164,6 +251,7 @@ class Rubro extends ActiveRecord {
         //Consultar la BD con el query
         $resultado= self::$db->query($query);
         //Iterar los resultados (para obtenerlos a todos y no solo al ultimo que se trae)
+              
         $array= [];
         while( $registro = $resultado->fetch_assoc() ) {
             $array[]= self::crearObjeto($registro); 
@@ -210,7 +298,15 @@ class Rubro extends ActiveRecord {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-
+/*  Esta funcion empata/mapea los atributos del objeto $producto con las llaves
+    del arreglo args[] */
+    public function sincronizar($args=[]) {
+        foreach($args as $key => $value) {
+            if( property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
+    }
 
 
 

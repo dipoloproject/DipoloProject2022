@@ -25,6 +25,17 @@
     color: #000;
     font-size: 2rem;
 }
+
+
+/*Inserta separación entre los botones de confirmar y cancelar
+cuando se selecciona la opcion de eliminar rubro*/
+.boton-confirm {
+    margin-right: 2.5rem;
+}
+.boton-cancel {
+    margin-left: 2.5rem;
+}
+
 /*-------------------------------------------*/
 
 /* Se ouclta el footer de la pantalla de loguego.

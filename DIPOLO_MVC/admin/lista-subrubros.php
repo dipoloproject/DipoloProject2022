@@ -9,6 +9,8 @@ use Model\Rubro;
 
     include_once '../includes/app.php';
 
+    /* Al ingresar a este archivo, se debe saber cuál es el rubro Padre seleccionado previamente
+    para asi poder mostrar en este archivo sus subrubros o rubros Hijos */
 //////////////////////////////////////////////////////////////////////////////////////
 /*  VALIDAR $_GET['id'] en URL                                                      //
     Al ingresar a esta pagina, se evalua el GET que se recibe,                      //
@@ -19,6 +21,28 @@ use Model\Rubro;
     }                                                                               //
 //////////////////////////////////////////////////////////////////////////////////////
 
+  //Determinar el Nombre del Rubro Padre
+  $rubroPadre = Rubro::find($id);
+  //debuguear($rubroPadre);
+
+
+
+    /*Se debe verificar si se seleccionó un subrubro o rubro hijo que se quiera eliminar */
+//////////////////////////////////////////////////////////////////////////////////////
+        /* Eliminacion del Rubro seleccionado */                                    //
+                                                                                    //
+    /*  VALIDAR $_POST['id-registro'] que contiene el idRubro del rubro a elinminar //
+    Al ingresar a esta pagina, se evalua el POST que se recibe,                     //
+    si el valor NO es entero, se redirecciona a /admin/lista-rubros.php*/           //
+    if( isset($_POST['id-registro']) ) {                                            //
+      $id_subrubro= filter_var($_POST['id-registro'], FILTER_VALIDATE_INT);                  //
+      if($id_subrubro) {                                                                     //
+        $rubro= Rubro::find($id_subrubro);                                                   //
+        $rubro->eliminar();                                                         //
+      }                                                                             //
+    }                                                                               //
+//////////////////////////////////////////////////////////////////////////////////////
+
     //include_once 'funciones/funciones.php';
     
       include_once 'templates/header.php';
@@ -26,12 +50,6 @@ use Model\Rubro;
       include_once 'templates/navegacion.php';
         
         //require_once ('../includes/app.php'); 
-
-
-  //Determinar el Nombre del Rubro Padre
-  $rubroPadre = Rubro::find($id);
-  //debuguear($rubroPadre);
-
 
 
 ?>
@@ -51,7 +69,7 @@ use Model\Rubro;
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          <div class="box">
+          <div class="box box-danger">
             <div> <!-- class="box-header"-->
               <!-- <h3 class="box-title" style="padding-left: 1rem;">Rubro Padre: <?php echo $rubroPadre->nombreRubro;?></h3> STYLE -->
             </div>
@@ -105,11 +123,14 @@ use Model\Rubro;
                                         title="Editar">
                                             <i class="fa fa-pencil" ></i>
                                     </a>
-                                    <a  href="#" data-id="<?php echo $rubro->idRubro; ?>" data-tipo="rubro" 
-                                        class="btn btn-xs bg-red btn-flat margin borrar-registro"
-                                        title="Eliminar">
-                                            <i class="fa fa-trash" ></i>
-                                    </a>
+
+                                    <form class="btn btn-xs bg-red btn-flat margin" name="form_eliminar-rubro" id="form_eliminar-rubro" method="post">
+                                      <button type="submit" class="btn btn-xs bg-red btn-flat" title="Eliminar" style="padding: 0rem;">
+                                        <i class="fa fa-trash" ></i>
+                                      </button>
+                                      <input type="hidden" name="button-action-rubro" value="eliminar"><!-- $_POST['crear-producto] indicara en el archivo de action si éste fue presionado-->
+                                      <input type="hidden" name="id-registro" value="<?php echo $rubro->idRubro; ?>">
+                                    </form>
                                 </td>
                             </tr>
 

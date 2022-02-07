@@ -5,13 +5,31 @@
                                                       si tiene permitido visitar la pagina/archivo actual*/
 
     //include_once 'funciones/funciones.php';
-    
+    require_once ('../includes/app.php'); 
+    use Model\Rubro;
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+        /* Eliminacion del Rubro seleccionado */                                    //
+                                                                                    //
+    /*  VALIDAR $_POST['id-registro'] que contiene el idRubro del rubro a elinminar //
+    Al ingresar a esta pagina, se evalua el POST que se recibe,                     //
+    si el valor NO es entero, se redirecciona a /admin/lista-rubros.php*/           //
+    if( isset($_POST['id-registro']) ) {                                            //
+      $id= filter_var($_POST['id-registro'], FILTER_VALIDATE_INT);                  //
+      if($id) {                                                                     //
+        //$rubro= Rubro::find($id);                                                   //
+        //$rubro->eliminar();                                                         //
+      }                                                                             //
+    }                                                                               //
+//////////////////////////////////////////////////////////////////////////////////////
+
         include_once 'templates/header.php';
         include_once 'templates/barra.php';
         include_once 'templates/navegacion.php';
         
-        require_once ('../includes/app.php'); 
-        use Model\Rubro;
+
+
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -28,7 +46,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          <div class="box">
+          <div class="box box-danger">
             <div> <!-- class="box-header"-->
               <!-- <h3 class="box-title">Sección de administración de Productos</h3> -->
             </div>
@@ -65,8 +83,9 @@
                                 <!-- <td>$&nbsp<?php echo $producto->precioVentaProducto; ?> </td> -->
                                 <!-- <td> <?php echo $producto->descripcionProducto; ?> </td> -->
                                 
-                                <!-- Botones de ACCIONES: Editar/Eliminar -->
-                                <td class="box-create-info-edit-delete">
+                                <!-- Botones de ACCIONES: Crear/Editar/Eliminar -->
+                                <!-- La accion Eliminar será un formulario, las demas seran enlaces -->
+                                <td style="display: inline-block;" class="box-create-info-edit-delete">
                                     <a  href="crear-subrubro.php?id=<?php echo $rubro->idRubro; ?>" 
                                         class="btn btn-xs bg-green btn-flat margin"
                                         title="Crear subrubro">
@@ -74,7 +93,7 @@
                                     </a>
                                     <a  href="lista-subrubros.php?id=<?php echo $rubro->idRubro; ?>" 
                                         class="btn btn-xs bg-orange btn-flat margin"
-                                        title="Subrubros">
+                                        title="Mostrar subrubros">
                                             <i class="fa fa-info-circle" ></i>
                                     </a>
                                     <a  href="actualizar-rubro.php?id=<?php echo $rubro->idRubro; ?>" 
@@ -82,11 +101,14 @@
                                         title="Editar">
                                             <i class="fa fa-pencil" ></i>
                                     </a>
-                                    <a  href="#" data-id="<?php echo $rubro->idRubro; ?>" data-tipo="rubro" 
-                                        class="btn btn-xs bg-red btn-flat margin borrar-registro"
-                                        title="Eliminar">
-                                            <i class="fa fa-trash" ></i>
-                                    </a>
+                                   
+                                    <form role="form" class="form_eliminar-rubro btn btn-xs bg-red btn-flat margin" name="form_eliminar-rubro" method="post" action="action-rubro.php">
+                                      <button type="submit" class="btn btn-xs bg-red btn-flat" title="Eliminar" style="padding: 0rem;">
+                                        <i class="fa fa-trash" ></i>
+                                      </button>
+                                      <input type="hidden" name="button-action-rubro" value="eliminar"><!-- $_POST['crear-producto] indicara en el archivo de action si éste fue presionado-->
+                                      <input type="hidden" name="id-registro" value="<?php echo $rubro->idRubro; ?>">
+                                    </form>
                                 </td>
                             </tr>
 

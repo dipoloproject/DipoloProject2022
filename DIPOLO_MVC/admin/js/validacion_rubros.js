@@ -152,7 +152,144 @@ $(document).ready(function() {
                 })// ./$.ajax
     
             //}// FIN if-else                                                                                                                   //
-        })                                                                                                                      //
+        })  // FIN  crear-rubro                        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                                                                              
+        $('#form_actualizar-rubro').on('submit', function(e) {                                                                            //
+            e.preventDefault();
+                                                                                                             //
+            /*if( !camposCorrectos.idRol ||                                                                                       //
+                !camposCorrectos.nombresUsuario || !camposCorrectos.apellidosUsuario ||                                         //
+                !camposCorrectos.usuario || !camposCorrectos.password || !camposCorrectos.email )                               //
+            {//si existe algun campo que NO este correcto, se evaluara donde mostrar el mensaje de "Campo Obligatorio"          //
+                testcamposBool(camposCorrectos);    //se testea que cada campo/input contenga un dato correcto                  //
+            }//si todos los campos tienen datos ingresados correctamente, se hace la INSERCION                                  //
+            else {//Se envian los datos del formulario y se espera una INSERCION exitosa o un ERROR de INSERCION                                                                                                              //*/
+                var datos = $(this).serializeArray();   //asigna a la variable el valor de los valores ingresados en los inputs del formulario con id=login-admin
+                
+                $.ajax({
+                    type: $(this).attr('method'),   //TIPO DE REQUEST: se lee el metodo del formuario con id=login-admin
+                    data: datos,                    //se indica los datos que se quieren enviar a ajax
+                    url: $(this).attr('action'),   //a donde se van a enviar, en este caso, se indica lo que indica action
+                    //dataType: 'text',               //se indica el tipo de datos. No se utilizará ya que daba errores
+                    success: function(data) {       //cuando la llamada sea exitosa, el archivo definido en action devuelve TRUE o FALSE
+                        
+                        if( data == true) {     //Mostrará notificacion de INSERCION EXITOSA
+                            Swal.fire({
+                                //title: '¡BIENVENIDO!',
+                                //text:'Iniciaste sesión con ÉXITO',
+                                icon: 'success',            //muestra animacion de tilde
+                                showConfirmButton: false,   //NO muestra boton de confirmar
+                                timer: 3000,                //tiempo que permanece visible la notificación
+                                html: '<p class="sweetalert2-html-wellcomeText">¡Operacion EXITOSA!</p> <p class="sweetalert2-html-actionText">El rubro fue actualizado correctamente</p>',
+                                //La propiedad html reemplaza a las propiedades: title y text
+                                //Las clases están definidas en el archivo admin/css/admin.css
+                            });
+        
+                            //Redirigir al archivo admin-area.php
+                            setTimeout( function() {
+                                window.location.href = 'lista-rubros.php'; //luego de redirigir, se actualiza
+                            }, 3000);// Se esperará cierto tiempo antes de ejecutarse
+        
+        
+                        } else {        ////Mostrará notificacion de OPERACION FALLIDA
+                            Swal.fire({
+                                icon: 'error',            //muestra animacion de tilde
+                                showConfirmButton: false,   //NO muestra boton de confirmar
+                                timer: 2000,                //tiempo que permanece visible la notificación
+                                html: '<p class="sweetalert2-html-errorText">¡ERROR!</p> <p class="sweetalert2-html-actionText">NO se pudo realizar la actualizacion</p>',
+                                //La propiedad html reemplaza a las propiedades: title y text
+                                //Las clases están definidas en el archivo admin/css/admin.css
+                            });
+        
+                        }// ./if-else
+                        /*Luego de definir la notificacion Swal.fire, se utilizó .catch(swal.noop)
+                        que es un controlador de rechazo de promesa y se usa
+                        para que NO aparezca en la consola del navegador
+                        el error "uncaught (in promise) overlay sweetalert2".
+                        Este error NO afectaba el funcionamiento del sitio web. Esto pudo omitirse
+                        al haber cargado otros archivos js y css */
+        
+                    }// ./success
+                })// ./$.ajax
+    
+            //}// FIN if-else                                                                                                                   //
+        }) // FIN actualizar-rubro
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                                                                              
+        $('.form_eliminar-rubro').on('submit', function(e) {                                                                            //
+            //alert("RUBRO A ELIMINAR");
+            e.preventDefault();
+            Swal.fire({
+                icon: 'warning',            //muestra animacion de tilde
+                html: '<p class="sweetalert2-html-wellcomeText">Estas seguro de realizar la operacion?</p> <p class="sweetalert2-html-actionText">Estas a punto de eliminar un registro!</p>',
+
+                showConfirmButton: true,   //NO muestra boton de confirmar
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                
+                buttonsStyling: false,
+                customClass:{
+                    confirmButton: 'btn btn-primary boton-confirm',
+                    cancelButton: 'btn btn-danger boton-cancel'
+                }
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                
+                    $(this).submit(); //Se envia el formulario al archivo action-rubro.php
+
+                    var datos = $(this).serializeArray();   //asigna a la variable el valor de los valores ingresados en los inputs del formulario con id=login-admin
+                    
+                    $.ajax({
+                        type: $(this).attr('method'),   //TIPO DE REQUEST: se lee el metodo del formuario con id=login-admin
+                        data: datos,                    //se indica los datos que se quieren enviar a ajax
+                        url: $(this).attr('action'),   //a donde se van a enviar, en este caso, se indica lo que indica action
+                        //dataType: 'text',               //se indica el tipo de datos. No se utilizará ya que daba errores
+                        success: function(data) {       //cuando la llamada sea exitosa, el archivo definido en action devuelve TRUE o FALSE
+                            
+                            if( data == true) {     //Mostrará notificacion de INSERCION EXITOSA
+                                Swal.fire({
+                                    //title: '¡BIENVENIDO!',
+                                    //text:'Iniciaste sesión con ÉXITO',
+                                    icon: 'success',            //muestra animacion de tilde
+                                    showConfirmButton: false,   //NO muestra boton de confirmar
+                                    timer: 1000,                //tiempo que permanece visible la notificación
+                                    html: '<p class="sweetalert2-html-wellcomeText">¡Operacion EXITOSA!</p> <p class="sweetalert2-html-actionText">El rubro fue eliminado</p>',
+                                    //La propiedad html reemplaza a las propiedades: title y text
+                                    //Las clases están definidas en el archivo admin/css/admin.css
+                                });
+            
+                                //Redirigir al archivo admin-area.php
+                                setTimeout( function() {
+                                    window.location.href = 'lista-rubros.php'; //luego de redirigir, se actualiza
+                                }, 1000);// Se esperará cierto tiempo antes de ejecutarse
+            
+            
+                            } else {        ////Mostrará notificacion de OPERACION FALLIDA
+                                Swal.fire({
+                                    icon: 'error',            //muestra animacion de tilde
+                                    showConfirmButton: false,   //NO muestra boton de confirmar
+                                    timer: 2000,                //tiempo que permanece visible la notificación
+                                    html: '<p class="sweetalert2-html-errorText">¡ERROR!</p> <p class="sweetalert2-html-actionText">NO se pudo realizar la eliminacion</p>',
+                                    //La propiedad html reemplaza a las propiedades: title y text
+                                    //Las clases están definidas en el archivo admin/css/admin.css
+                                });
+            
+                            }// ./if-else
+                            /*Luego de definir la notificacion Swal.fire, se utilizó .catch(swal.noop)
+                            que es un controlador de rechazo de promesa y se usa
+                            para que NO aparezca en la consola del navegador
+                            el error "uncaught (in promise) overlay sweetalert2".
+                            Este error NO afectaba el funcionamiento del sitio web. Esto pudo omitirse
+                            al haber cargado otros archivos js y css */
+            
+                        }// ./success
+                    })// ./$.ajax
+
+                }// FIN if (result.isConfirmed)
+              })
+                                                                                                               //
+        })  //FIN  eliminar-rubro
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /*
         function testcamposBool(camposBool) {

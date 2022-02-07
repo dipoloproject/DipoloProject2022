@@ -60,63 +60,45 @@ if( $_POST['button-action-rubro'] == 'crear' ) {//en caso que exista la variable
 if( $_POST['button-action-rubro'] == 'actualizar' ) {//en caso que exista la variable, se lleerán los valores ingresados
     
     /*try{*/
-        
         $id_registro = $_POST['id-registro'];   //la variable $_POST['id-registro'] sólo existe si se ingresa a este IF-ACTUALIZAR
 
-        $producto = Rubro::find($id_registro);
-
-
+        $rubro = Rubro::find($id_registro);
+        // echo "<pre>";
+        // var_dump($rubro);
+        // echo "</pre>";
+        // echo "ya se mostro el rubro como objeto recien creado";
 /*      El arreglo $args[] contendra los datos del formulario form_actualizar-producto
     para luego copiar estos valores en el objeto $producto=Producto::find($id)
         El video 364 muestra como resumir todas estas asignaciones
         El video 366 muestra como eliminar la imagen si se la actualiza  */
         $args= [];
-        $args['idModelo']= $_POST['idModelo'] ?? null;
-        $args['idRubro']= $_POST['idRubro'] ?? null;
-        // $args['idSubrubro']= $_POST['idSubrubro'] ?? null;
-        $args['idMarca']= $_POST['idMarca'] ?? null;
-        $args['codigoProducto']= $_POST['codigoProducto'] ?? null;
-        $args['nombreProducto']= $_POST['nombreProducto'] ?? null;
-        $args['origen']= $_POST['origen'] ?? null;
-        $args['descripcionProducto']= $_POST['descripcionProducto'] ?? null;
 
-        //$args['precioTachadoProducto']= $_POST['precioTachadoProducto'] ?? intval(0);
-        if( isset($_POST['precioTachadoProducto']) ) {$args['precioTachadoProducto'] = intval($_POST['precioTachadoProducto']);}
-        else {$args['precioTachadoProducto'] = 0;}
-
-        //$args['precioVentaProducto']= $_POST['precioVentaProducto'] ?? 0;
-        if( isset($_POST['precioVentaProducto']) ) {$args['precioVentaProducto'] = intval($_POST['precioVentaProducto']);}
-        else {$args['precioVentaProducto'] = 0;}
-        //$args['precioListaProducto']= $_POST['precioListaProducto'] ?? 0;
-        if( isset($_POST['precioListaProducto']) ) {$args['precioListaProducto'] = intval($_POST['precioListaProducto']);}
-        else {$args['precioListaProducto'] = 0;}
+        $args['idRubro']= intval($id_registro);;
+        $args['nombreRubro']= $_POST['nombreRubro'] ?? null;
+        $args['descripcionRubro']= $_POST['descripcionRubro'] ?? null;
         
-        $args['destacadoProducto']= $_POST['destacadoProducto'] ?? null;
+        if( isset($_POST['ordenRubro']) ) {$args['ordenRubro'] = intval($_POST['ordenRubro']);}
+        else {$args['ordenRubro'] = 0;}
+
+        $args['destacadoRubro']= $_POST['destacadoRubro'] ?? null;
+        $args['menuRubro']= $_POST['menuRubro'] ?? null;
+        $args['estadoRubro']= $_POST['estadoRubro'] ?? null;
         
-        //$args['ordenProducto']= $_POST['ordenProducto'] ?? null;
-        if( isset($_POST['ordenProducto']) ) {$args['ordenProducto'] = intval($_POST['ordenProducto']);}
-        else {$args['ordenProducto'] = 0;}
-
-        //$args['vistasProducto']= $_POST['vistasProducto'] ?? null;
-        if( isset($_POST['vistasProducto']) ) {$args['vistasProducto'] = intval($_POST['vistasProducto']);}
-        else {$args['vistasProducto'] = 0;}
-
-        $args['stockProducto']= $_POST['stockProducto'] ?? null;
-        $args['condicion']= $_POST['condicion'] ?? null;
-        $args['estadoProducto']= $_POST['estadoProducto'] ?? null;
 
 
-        $producto->sincronizar($args);
-        echo "antes del debuguear...<br>";
-        //debuguear($producto);
+        $rubro->sincronizar($args);
+        //echo "antes del debuguear...<br>";
+        //debuguear($rubro);
+
+        //  echo "<pre>";
+        //  var_dump($rubro);
+        //  echo "</pre>";
+        //  echo "ya se mostro el rubro como objeto SINCRONIZADO";
 
 
 
-        $producto->actualizar();
+        echo $rubro->actualizar();
         //echo $producto->actualizar();
-
-
-        
 
         /*$stmt = $db->prepare("UPDATE Productos SET nombreProducto = ?, descripcion = ?, precio = ?, color = ?, peso = ?) WHERE idProducto = ? ");
         $stmt->bind_param("ssdsdi", $nombreProducto, $descripcionProducto, $precioProducto, );
@@ -138,6 +120,64 @@ if( $_POST['button-action-rubro'] == 'actualizar' ) {//en caso que exista la var
     }*/
 
 }//if - ACTUALIZAR
+
+if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la variable, se lleerán los valores ingresados
+    //try{
+        //require_once ('../includes/app.php'); 
+        //echo "Se ingresó al IF-crear<br>";
+        //$rubro = new Rubro($_POST);
+        //echo "<pre>";
+        //echo "En action-rubro<br>";
+        //var_dump($_POST);
+        //debuguear($rubro);
+        //var_dump($rubro->idRubroPadre);
+        //echo "ANTES DE GUARDAR<br>";
+        //echo $rubro->guardar();
+
+//////////////////////////////////////////////////////////////////////////////////////
+        /* Eliminacion del Rubro seleccionado */                                    //
+                                                                                    //
+    /*  VALIDAR $_POST['id-registro'] que contiene el idRubro del rubro a elinminar //
+    Al ingresar a esta pagina, se evalua el POST que se recibe,                     //
+    si el valor NO es entero, se redirecciona a /admin/lista-rubros.php*/           //
+    if( isset($_POST['id-registro']) ) {                                            //
+        $id= filter_var($_POST['id-registro'], FILTER_VALIDATE_INT);                  //
+        if($id) {                                                                     //
+          $rubro= Rubro::find($id);                                                   //
+          //echo "Se elimina registro";
+          //echo false;
+          echo $rubro->eliminar();                                                         //
+        }                                                                             //
+      }                                                                               //
+  //////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+        
+        //$errores= $usuario->validar();
+        // if( empty($errores) ) {
+        //     $usuario->guardar();
+        // }
+        
+        //$stmt->close();
+        //$db->close();
+// exit;
+    //} catch (Exception $e) {
+        //echo "Error: " . $e->getMessage();
+    //}
+
+} ////if - ELIMINAR
+
+
+
+
+
+
+
+
+
 
 
     //include_once 'templates/footer.php';
