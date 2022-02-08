@@ -31,36 +31,23 @@
             </div>
             <div class="box-body">
               <!-- form start -->
-              <form role="form" name="crear-producto-form" id="crear-producto" method="post" action="action-producto.php">
+              <form role="form" name="form_crear-rol" id="form_crear-rol" method="post" action="action-rol.php">
                 <div class="box-body">
                     <div class="form-group">
                           <label for="nombreRol">Nombre</label>
                           <input type="text" class="form-control" id="nombreRol" name="nombreRol" placeholder="Ingresar nombre del rol">
                     </div>
+
                     <div class="form-group">
                           <label for="estadoRol">Estado</label>
-                          <select class="form-control">
-                            <option value="A" selected>Activo</option>
-                            <option value="I" >Inactivo</option>
+                          <select class="form-control" name="estadoRol" id="estadoRol">
+                            <option value="Activo" selected>Activo</option>
+                            <option value="Inactivo" >Inactivo</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label>Permisos</label>
-                        <select class="form-control">
-                            <option value="" selected>--Seleccionar permisos--</option><!-- opcion creada solo para visualizacion, su seleccion NO es valida -->
-                                <?php foreach($roles as $rol) { ?>
-                                    <option 
-                                        <?php echo $producto->idRol === $roles->idRol ? 'selected' : '';?>
-                                        value=" <?php echo S($rol->idRol); ?> ">
-                                            <?php echo s($rol->idRol); ?>
-                                    </option>
-                                <?php } ?>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                          <label for="observacionesUsuario">Observaciones</label>
+                          <label for="observacionesRol">Observaciones</label>
                           <input type="text" class="form-control" id="observacionesRol" name="observacionesRol"placeholder="Ingresar observaciones">
                     </div>
                     
@@ -74,7 +61,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button type="submit" class="btn btn-success">Crear Rol</button>
-                    <input type="hidden" name="button-action-producto" value="crear"><!-- $_POST['crear-producto] indicara en el archivo de action si éste fue presionado-->
+                    <input type="hidden" name="button-action-rol" value="crear"><!-- $_POST['crear-producto] indicara en el archivo de action si éste fue presionado-->
                 </div>
               </form>
             </div>

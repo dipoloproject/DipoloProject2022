@@ -42,5 +42,6 @@
 <script src="js/validacion_usuarios.js" ></script>
 <script src="js/validacion_productos.js" ></script>
 <script src="js/validacion_rubros.js" ></script>
+<script src="js/notificaciones_roles.js" ></script>
 </body>
 </html>
