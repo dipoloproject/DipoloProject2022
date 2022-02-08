@@ -54,7 +54,7 @@
             <span>Roles</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="lista-usuarios.php"><i class="fa fa-list-ul"></i> Ver Todos </a></li>
+            <li><a href="lista-roles.php"><i class="fa fa-list-ul"></i> Ver Todos </a></li>
             <li><a href="crear-rol.php"><i class="fa fa-plus"></i> Agregar </a></li>
           </ul>
         </li>
