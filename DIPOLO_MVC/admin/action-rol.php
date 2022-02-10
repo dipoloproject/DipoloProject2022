@@ -57,13 +57,13 @@ if( $_POST['button-action-rol'] == 'crear' ) {//en caso que exista la variable, 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* Se evalúa si el boton presionado fue Actualizar Rubro */
-/*
+
 if( $_POST['button-action-rol'] == 'actualizar' ) {//en caso que exista la variable, se lleerán los valores ingresados
     
-    /*try{
+    //try{
         $id_registro = $_POST['id-registro'];   //la variable $_POST['id-registro'] sólo existe si se ingresa a este IF-ACTUALIZAR
 
-        $rubro = Rubro::find($id_registro);
+        $rol = Rol::find($id_registro);
         // echo "<pre>";
         // var_dump($rubro);
         // echo "</pre>";
@@ -71,35 +71,24 @@ if( $_POST['button-action-rol'] == 'actualizar' ) {//en caso que exista la varia
 /*      El arreglo $args[] contendra los datos del formulario form_actualizar-producto
     para luego copiar estos valores en el objeto $producto=Producto::find($id)
         El video 364 muestra como resumir todas estas asignaciones
-        El video 366 muestra como eliminar la imagen si se la actualiza  
+        El video 366 muestra como eliminar la imagen si se la actualiza */ 
         $args= [];
 
-        $args['idRubro']= intval($id_registro);;
-        $args['nombreRubro']= $_POST['nombreRubro'] ?? null;
-        $args['descripcionRubro']= $_POST['descripcionRubro'] ?? null;
-        
-        if( isset($_POST['ordenRubro']) ) {$args['ordenRubro'] = intval($_POST['ordenRubro']);}
-        else {$args['ordenRubro'] = 0;}
-
-        $args['destacadoRubro']= $_POST['destacadoRubro'] ?? null;
-        $args['menuRubro']= $_POST['menuRubro'] ?? null;
-        $args['estadoRubro']= $_POST['estadoRubro'] ?? null;
-        
-
-
-        $rubro->sincronizar($args);
+        $args['idRol']= intval($id_registro);;
+        $args['nombreRol']= $_POST['nombreRol'] ?? null;
+        $args['estadoRol']= $_POST['estadoRol'] ?? null;
+        $args['observacionesRol']= $_POST['observacionesRol'] ?? null;
+        //debuguear($args);
+        $rol->sincronizar($args);
         //echo "antes del debuguear...<br>";
-        //debuguear($rubro);
+        //debuguear($rol);
 
         //  echo "<pre>";
         //  var_dump($rubro);
         //  echo "</pre>";
         //  echo "ya se mostro el rubro como objeto SINCRONIZADO";
 
-
-
-        echo $rubro->actualizar();
-        //echo $producto->actualizar();
+        echo $rol->actualizar();
 
         /*$stmt = $db->prepare("UPDATE Productos SET nombreProducto = ?, descripcion = ?, precio = ?, color = ?, peso = ?) WHERE idProducto = ? ");
         $stmt->bind_param("ssdsdi", $nombreProducto, $descripcionProducto, $precioProducto, );
@@ -118,10 +107,11 @@ if( $_POST['button-action-rol'] == 'actualizar' ) {//en caso que exista la varia
         $db->close();
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
-    }
+    }*/
 
 }//if - ACTUALIZAR
-
+?>
+<!--
 if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la variable, se lleerán los valores ingresados
     //try{
         //require_once ('../includes/app.php'); 
@@ -153,7 +143,7 @@ if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la varia
   //////////////////////////////////////////////////////////////////////////////////////
 
 
-
+    
 
 
         
@@ -172,15 +162,6 @@ if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la varia
 } ////if - ELIMINAR
 
 
-
-
-
-
-
-
-
-
-
     //include_once 'templates/footer.php';
 
 
@@ -188,4 +169,4 @@ if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la varia
 OBSERVACIONES:
     Cuando se hayan recibido los datos del formulario, en el try se abrirá la conexion a la base de datos
 */
-?>
+-->

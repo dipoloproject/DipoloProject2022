@@ -4,7 +4,7 @@ namespace Model;
 
 class Rol extends ActiveRecord {
     
-    protected static $tabla= 'Rol';
+    protected static $tabla= 'Roles';
     protected static $columnasDB = [    'idRol', 
                                         'nombreRol', 'estadoRol',
                                         'observacionesRol'];
@@ -64,26 +64,23 @@ class Rol extends ActiveRecord {
     }// FIN guardar()
 
 
-    /*public function actualizar() {
-        // echo "<pre>";
-        // var_dump($this->nombreRubro);
-        // var_dump($this->descripcionRubro);
-        // var_dump($this->ordenRubro);
-        // var_dump($this->destacadoRubro);
+    public function actualizar() {
+        //echo "<pre>";
+        //var_dump($this->nombreRol);
+        //var_dump($this->estadoRol);
+        //var_dump($this->observacionesRol);
+        //var_dump($this->idRol);
         // var_dump($this->menuRubro);
         // var_dump($this->estadoRubro);
         // var_dump($this->idRubro);
-        // echo "</pre>";
+        //echo "</pre>";
 
-        $stmt = self::$db->prepare( "UPDATE `Rubros` SET    nombreRubro= ?, descripcionRubro= ?,
-                                                            ordenRubro= ?, destacadoRubro= ?,
-                                                            menuRubro= ?, estadoRubro= ?
-                                        WHERE   idRubro= ? ;" );
+        $stmt = self::$db->prepare( "UPDATE `Roles` SET    nombreRol= ?, estadoRol= ?,
+                                                            observacionesRol= ?
+                                        WHERE   idRol= ? ;" );
 
-        $stmt->bind_param("ssisssi",    $this->nombreRubro, $this->descripcionRubro,
-                                        $this->ordenRubro, $this->destacadoRubro, 
-                                        $this->menuRubro, $this->estadoRubro, 
-                                        $this->idRubro );
+        $stmt->bind_param("sssi",    $this->nombreRol, $this->estadoRol,
+                                        $this->observacionesRol, $this->idRol);
 
         /*$stmt = self::$db->prepare( "INSERT INTO    `Rubros` (  idRubroPadre, 
                                                                 nombreRubro, descripcionRubro,
@@ -105,14 +102,14 @@ class Rol extends ActiveRecord {
 
 
 
-        //debuguear($stmt);
+        //debuguear($stmt);*/
         $stmt->execute();
 
         return true;
         // debuguear($stmt);
 
         //$stmt->affected_rows siempre devolvera 0, ESTO OCURRE CON UPDATE y supuestamente con DELETE
-        if($stmt->affected_rows>0) {
+        /*if($stmt->affected_rows>0) {
             //echo "La actualizacion fue exitosa";
             return true;
         } else {
@@ -120,16 +117,16 @@ class Rol extends ActiveRecord {
             //return false;
             return true;
         }
-
+*/
         $stmt->close();
         self::$db->close(); 
 
         //echo "LUEGO DEL EXECUTE DE ACTUALIZAR";
         //echo $query;
-        //debuguear($resultado);
+        //debuguear($resultado);*/
     }//FIN actualizar()
 
-    public function eliminar() {
+    /*public function eliminar() {
         
         $stmt = self::$db->prepare( "DELETE FROM `Rubros` WHERE idRubro= ? LIMIT 1 ;" );
         $stmt->bind_param("i",    $this->idRubro );
