@@ -73,7 +73,7 @@ if( $_POST['button-action-rubro'] == 'actualizar' ) {//en caso que exista la var
         El video 366 muestra como eliminar la imagen si se la actualiza  */
         $args= [];
 
-        $args['idRubro']= intval($id_registro);;
+        $args['idRubro']= intval($id_registro);
         $args['nombreRubro']= $_POST['nombreRubro'] ?? null;
         $args['descripcionRubro']= $_POST['descripcionRubro'] ?? null;
         

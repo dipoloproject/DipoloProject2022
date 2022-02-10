@@ -75,12 +75,12 @@ class Rol extends ActiveRecord {
         // var_dump($this->idRubro);
         //echo "</pre>";
 
-        $stmt = self::$db->prepare( "UPDATE `Roles` SET    nombreRol= ?, estadoRol= ?,
+        $stmt = self::$db->prepare( "UPDATE `Roles` SET     nombreRol= ?, estadoRol= ?,
                                                             observacionesRol= ?
-                                        WHERE   idRol= ? ;" );
+                                                    WHERE   idRol= ? ;" );
 
-        $stmt->bind_param("sssi",    $this->nombreRol, $this->estadoRol,
-                                        $this->observacionesRol, $this->idRol);
+        $stmt->bind_param("sssi",   $this->nombreRol, $this->estadoRol,
+                                    $this->observacionesRol, $this->idRol);
 
         /*$stmt = self::$db->prepare( "INSERT INTO    `Rubros` (  idRubroPadre, 
                                                                 nombreRubro, descripcionRubro,
@@ -104,7 +104,7 @@ class Rol extends ActiveRecord {
 
         //debuguear($stmt);*/
         $stmt->execute();
-
+        //debuguear($stmt->affected_rows);
         return true;
         // debuguear($stmt);
 
@@ -118,8 +118,8 @@ class Rol extends ActiveRecord {
             return true;
         }
 */
-        $stmt->close();
-        self::$db->close(); 
+        //$stmt->close();
+        //self::$db->close(); 
 
         //echo "LUEGO DEL EXECUTE DE ACTUALIZAR";
         //echo $query;

@@ -74,7 +74,7 @@ if( $_POST['button-action-rol'] == 'actualizar' ) {//en caso que exista la varia
         El video 366 muestra como eliminar la imagen si se la actualiza */ 
         $args= [];
 
-        $args['idRol']= intval($id_registro);;
+        $args['idRol']= intval($id_registro);
         $args['nombreRol']= $_POST['nombreRol'] ?? null;
         $args['estadoRol']= $_POST['estadoRol'] ?? null;
         $args['observacionesRol']= $_POST['observacionesRol'] ?? null;
@@ -110,9 +110,8 @@ if( $_POST['button-action-rol'] == 'actualizar' ) {//en caso que exista la varia
     }*/
 
 }//if - ACTUALIZAR
-?>
-<!--
-if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la variable, se lleerán los valores ingresados
+
+if( $_POST['button-action-rol'] == 'eliminar' ) {//en caso que exista la variable, se lleerán los valores ingresados
     //try{
         //require_once ('../includes/app.php'); 
         //echo "Se ingresó al IF-crear<br>";
@@ -130,22 +129,17 @@ if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la varia
                                                                                     //
     /*  VALIDAR $_POST['id-registro'] que contiene el idRubro del rubro a elinminar //
     Al ingresar a esta pagina, se evalua el POST que se recibe,                     //
-    si el valor NO es entero, se redirecciona a /admin/lista-rubros.php          //
+    si el valor NO es entero, se redirecciona a /admin/lista-rubros.php*/           //
     if( isset($_POST['id-registro']) ) {                                            //
         $id= filter_var($_POST['id-registro'], FILTER_VALIDATE_INT);                  //
         if($id) {                                                                     //
-          $rubro= Rubro::find($id);                                                   //
+          $rol= Rol::find($id);                                                   //
           //echo "Se elimina registro";
           //echo false;
-          echo $rubro->eliminar();                                                         //
+          echo $rol->eliminar();                                                         //
         }                                                                             //
       }                                                                               //
   //////////////////////////////////////////////////////////////////////////////////////
-
-
-    
-
-
         
         //$errores= $usuario->validar();
         // if( empty($errores) ) {
@@ -169,4 +163,4 @@ if( $_POST['button-action-rubro'] == 'eliminar' ) {//en caso que exista la varia
 OBSERVACIONES:
     Cuando se hayan recibido los datos del formulario, en el try se abrirá la conexion a la base de datos
 */
--->
+?>
